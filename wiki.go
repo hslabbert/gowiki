@@ -18,7 +18,7 @@ var templates = template.Must(template.ParseFiles("tmpl/edit.html", "tmpl/view.h
 var validPath = regexp.MustCompile("^/(edit|save|view)/([a-zA-Z0-9]+)$")
 
 func (p *Page) save() error {
-	filename := p.Title + ".txt"
+	filename := "pages/" + p.Title + ".txt"
 	return ioutil.WriteFile(filename, p.Body, 0600)
 }
 
@@ -32,7 +32,7 @@ func getTitle(w http.ResponseWriter, r *http.Request) (string, error) {
 }
 
 func loadPage(title string) (*Page, error) {
-	filename := title + ".txt"
+	filename := "pages/" + title + ".txt"
 	body, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
